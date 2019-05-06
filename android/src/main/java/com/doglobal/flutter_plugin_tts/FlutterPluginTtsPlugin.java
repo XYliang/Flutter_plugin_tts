@@ -53,6 +53,11 @@ public class FlutterPluginTtsPlugin implements MethodCallHandler, TextToSpeech.O
       result.success(success);
     } else if (call.method.equals("getAvailableLanguages")) {
       result.success(getAvailableLanguages());
+    } else if(call.method.equals("setSpeechRate")) {
+      double rate = call.argument("rate");
+      result.success(setSpeechRate((float)rate));
+    } else if(call.method.equals("isSpeaking")) {
+      result.success(isSpeaking());
     }
     else if (call.method.equals("getPlatformVersion")) {
       result.success("Android " + android.os.Build.VERSION.RELEASE);
@@ -83,6 +88,32 @@ public class FlutterPluginTtsPlugin implements MethodCallHandler, TextToSpeech.O
     if (myTTS != null) {
       myTTS.shutdown();
     }
+  }
+
+  // success = 0 or error = -1
+  int setSpeechRate(float rateV) {
+    int r = -1;
+    if (myTTS != null) {
+      r = myTTS.setSpeechRate(rateV * 2);
+    }
+    return r;
+  }
+
+  boolean isSpeaking() {
+    boolean r = false;
+    if (myTTS != null) {
+      r = myTTS.isSpeaking();
+    }
+    return r;
+  }
+
+  // success = 0 or error = -1
+  int setPitch(float rateV) {
+    int r = -1;
+    if (myTTS != null) {
+      r = myTTS.setPitch(rateV);
+    }
+    return r;
   }
 
   Boolean isLanguageAvailable(String locale) {

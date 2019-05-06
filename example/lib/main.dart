@@ -44,10 +44,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Column(
+        body:
+        ListView(
           children: <Widget>[
             RaisedButton(child: const Text('设置成汉语'), onPressed: () {
               FlutterPluginTts.setLanguage('zh-CN').then((v){
@@ -97,6 +95,15 @@ class _MyAppState extends State<MyApp> {
               FlutterPluginTts.isLanguageAvailable('ja-JP').then((v){
                 debugPrint('r = $v');
               });
+            }),
+            RaisedButton(child: const Text('设置语速为1正常'), onPressed: () {
+              FlutterPluginTts.setSpeechRate(0.5);
+            }),
+            RaisedButton(child: const Text('设置语速为0.5'), onPressed: () {
+              FlutterPluginTts.setSpeechRate(0.25);
+            }),
+            RaisedButton(child: const Text('设置语速为2'), onPressed: () {
+              FlutterPluginTts.setSpeechRate(1);
             }),
           ],
         ),

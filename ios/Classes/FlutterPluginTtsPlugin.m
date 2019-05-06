@@ -11,6 +11,7 @@
 
 - (instancetype)init {
     self.speechSynthesizer = [[AVSpeechSynthesizer alloc] init];
+    self.rate = (AVSpeechUtteranceMaximumSpeechRate - AVSpeechUtteranceMinimumSpeechRate) * 0.5;
     return self;
 }
 
@@ -19,6 +20,9 @@
         [self speak:call.arguments[@"text"]];
     } else if ([@"stop" isEqualToString:call.method]) {
         [self stop];
+    } else if ([@"setSpeechRate" isEqualToString:call.method]) {
+        NSString *rate = call.arguments[@"rate"];
+        [self setSpeechRate:rate.floatValue];
     } else if ([@"shutdown" isEqualToString:call.method]) {
         [self shutdown];
     } else if ([@"isLanguageAvailable" isEqualToString:call.method]) {
@@ -45,6 +49,12 @@
     return NO;
 }
 
+-(BOOL)setSpeechRate:(float)rate {
+    CGFloat range = AVSpeechUtteranceMaximumSpeechRate - AVSpeechUtteranceMinimumSpeechRate;
+    self.rate = AVSpeechUtteranceMinimumSpeechRate + rate * range;
+    return YES;
+}
+
 -(BOOL) setLanguage:(NSString*) locale {
     if([self isLanguageAvailable:locale]){
         self.locale = locale;
@@ -65,6 +75,7 @@
 
 -(void)speak:(NSString*) text {
     AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:text];
+    utterance.rate = self.rate;
     if(self.locale != nil){
         AVSpeechSynthesisVoice *voice = [AVSpeechSynthesisVoice voiceWithLanguage:self.locale];
         utterance.voice = voice;

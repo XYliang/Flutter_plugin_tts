@@ -35,4 +35,10 @@ class FlutterPluginTts {
   static void shutdown() async {
     _channel.invokeMethod('shutdown');
   }
+
+  static void setSpeechRate(double rate) async {
+    _channel.invokeMethod('setSpeechRate', <String, Object>{
+      'rate': rate.toString()
+    });
+  }
 }
