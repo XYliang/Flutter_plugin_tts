@@ -1,3 +1,7 @@
+## 1.0.2
+
+* android platform error for set speech rate
+
 ## 1.0.1
 
 * add set speech rate

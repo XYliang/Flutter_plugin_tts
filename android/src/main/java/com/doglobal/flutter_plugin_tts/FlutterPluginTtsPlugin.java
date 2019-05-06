@@ -54,8 +54,8 @@ public class FlutterPluginTtsPlugin implements MethodCallHandler, TextToSpeech.O
     } else if (call.method.equals("getAvailableLanguages")) {
       result.success(getAvailableLanguages());
     } else if(call.method.equals("setSpeechRate")) {
-      double rate = call.argument("rate");
-      result.success(setSpeechRate((float)rate));
+      String rate = call.argument("rate");
+      result.success(setSpeechRate(Float.valueOf(rate)));
     } else if(call.method.equals("isSpeaking")) {
       result.success(isSpeaking());
     }

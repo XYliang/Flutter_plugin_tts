@@ -2,6 +2,8 @@
 
 A new Flutter plugin.
 
+[Github](https://github.com/XYliang/Flutter_plugin_tts)
+
 ## Getting Started
 
 
