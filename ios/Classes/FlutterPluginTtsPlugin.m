@@ -23,6 +23,14 @@
     } else if ([@"setSpeechRate" isEqualToString:call.method]) {
         NSString *rate = call.arguments[@"rate"];
         [self setSpeechRate:rate.floatValue];
+    } else if ([@"speakWithDuration" isEqualToString:call.method]) {
+        NSString *d = call.arguments[@"duration"];
+        if (!d) {
+            [self speak:@""];
+        } else {
+            NSTimeInterval t = [d doubleValue];
+            [self speakDuration:t];
+        }
     } else if ([@"shutdown" isEqualToString:call.method]) {
         [self shutdown];
     } else if ([@"isLanguageAvailable" isEqualToString:call.method]) {
@@ -83,6 +91,18 @@
     [self.speechSynthesizer speakUtterance:utterance];
 }
 
+-(void)speakDuration:(NSTimeInterval) duration {
+    AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:@""];
+    utterance.rate = self.rate;
+    utterance.preUtteranceDelay = duration;
+    utterance.volume = 0;
+    if(self.locale != nil) {
+        AVSpeechSynthesisVoice *voice = [AVSpeechSynthesisVoice voiceWithLanguage:self.locale];
+        utterance.voice = voice;
+    }
+    [self.speechSynthesizer speakUtterance:utterance];
+}
+
 -(void)stop {
     [self.speechSynthesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
 }
@@ -93,3 +113,4 @@
     }
 }
 @end
+

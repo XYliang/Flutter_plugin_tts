@@ -74,6 +74,11 @@ class _MyAppState extends State<MyApp> {
             RaisedButton(child: const Text('播放长句子'), onPressed: () {
               FlutterPluginTts.speak('你好，世界。我正在测试播放很长的句子，你可以点击下方的播放暂停按钮来终止我的播放，如果我没有停止那就意味着这个停止功能还有问题。请你继续修复。啦啦啦啦！');
             }),
+            RaisedButton(child: const Text('播放句子加延迟ios'), onPressed: () {
+              FlutterPluginTts.speak('动作1');
+              FlutterPluginTts.speakWithDuration(3);
+              FlutterPluginTts.speak('动作6');
+            }),
             RaisedButton(child: const Text('播放暂停'), onPressed: () {
               FlutterPluginTts.stop();
             }),

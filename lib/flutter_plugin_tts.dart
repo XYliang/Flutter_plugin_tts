@@ -28,6 +28,11 @@ class FlutterPluginTts {
   static void speak (String text) => _channel.invokeMethod('speak', <String, Object>{
     'text': text});
 
+  // Only iOS Platform
+  static void speakWithDuration (double interval) => _channel.invokeMethod('speakWithDuration', <String, Object>{
+    'duration' : interval
+  });
+
   static void stop() async {
     _channel.invokeMethod('stop');
   }

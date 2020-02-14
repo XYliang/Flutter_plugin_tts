@@ -2,7 +2,7 @@ name: flutter_plugin_tts
 description: A new Flutter plugin.
 version: 1.0.2
 author: XueYinliang <492199045@qq.com>
-homepage: https://tryenough.com
+homepage: https://github.com/XYliang/Flutter_plugin_tts
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
